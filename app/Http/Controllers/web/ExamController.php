@@ -84,8 +84,9 @@ class ExamController extends Controller
             }
         }
 
-        $score = ($points / $totalQuseNum  * 100);
-      //  return dd($score);
+        $score = ($points / $totalQuseNum)  * 100;
+
+        // return dd($score);
         //Calc time 
         $user = Auth::user();
         $pivotRow = $user->exams()->where('exam_id', $examId)->first();
@@ -96,10 +97,9 @@ class ExamController extends Controller
 
         //chack in the time exam 
 
-        if ($timeMins > $pivotRow->duration_mins) {
-            $score = 0;
-        };
-
+        // if ($timeMins > $pivotRow->duration_mins) {
+        //     $score = 0;
+        // };
 
         // update the Pivot
         $user->exams()->updateExistingPivot($examId, [
@@ -107,7 +107,7 @@ class ExamController extends Controller
             'time_mins' => $timeMins,
         ]);
 
-        $request->session()->flash("success", "You fininsed exam successfully with score : $score %");
+        $request->session()->flash("success", "You fininsed exam successfully with score : $score%");
 
         return redirect(url("exam/show/$examId"));
     }
