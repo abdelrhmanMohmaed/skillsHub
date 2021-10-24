@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
 
         foreach ($auth as $autth) {
             if (Auth::auth($autth)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect(url('register'));
             }
         }
 
