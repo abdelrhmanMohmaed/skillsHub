@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::middleware('lang')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
     Route::get('/home', [HomeController::class, 'index']);
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
     Route::get('/skills/show/{id}', [SkillController::class, 'show']);
