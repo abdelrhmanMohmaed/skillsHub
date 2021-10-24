@@ -90,6 +90,16 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <script type="text/javascript" src="{{ asset('web/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('web/js/bootstrap.min.js') }}"></script>
+    <script>
+        $(".navbar-toggle").click(function() {
+            $(".navbar-collapse").toggle(1000)
+        });
+        $(".dropdown-toggle").click(function() {
+            $(".dropdown-menu").toggle(1000)
+        });
+    </script>
     <script>
         $('#logout-link').click(function(e) {
             e.preventDefault();
@@ -110,7 +120,7 @@
         });
 
         var channel = pusher.subscribe('notifications-channel');
-        channel.bind('exam-added', function(data) { 
+        channel.bind('exam-added', function(data) {
             toastr.success('New Exam Added !');
         });
     </script>
