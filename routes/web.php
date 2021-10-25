@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\admin\AdminsController;
+use App\Http\Controllers\Admin\AdminsController;
 use App\Http\Controllers\Admin\CatController as AdminCatController;
 use App\Http\Controllers\Admin\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\admin\MessagesController;
+use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\SkillController as AdminSkillController;
-use App\Http\Controllers\admin\StudentController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\web\CatController;
 use App\Http\Controllers\web\ContactController;
 use App\Http\Controllers\web\ExamController;
@@ -36,19 +36,19 @@ Route::middleware('lang')->group(function () {
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
     Route::get('/skills/show/{id}', [SkillController::class, 'show']);
     Route::get('/exam/show/{id}', [ExamController::class, 'show']);
-    Route::get('/exam/questions/{id}', [ExamController::class, 'questions'])->middleware(['auth', 'verified', 'student']);
+    Route::get('/exam/questions/{id}', [ExamController::class, 'questions'])->middleware(['auth','student']);
     Route::get('/contact', [ContactController::class, 'index']);
     Route::post('/contact/message/send', [ContactController::class, 'send']);
-    Route::get('/profile', [ProfileController::class, 'index'])->middleware(['auth', 'verified', 'student']);
+    Route::get('/profile', [ProfileController::class, 'index'])->middleware(['auth','student']);
 });
 
-Route::post('/exams/start/{id}', [ExamController::class, 'start'])->middleware(['auth', 'verified', 'student', 'can-enter-exam']);
-Route::post('/exams/submit/{id}', [ExamController::class, 'submit'])->middleware(['auth', 'verified', 'student']);
+Route::post('/exams/start/{id}', [ExamController::class, 'start'])->middleware(['auth','student', 'can-enter-exam']);
+Route::post('/exams/submit/{id}', [ExamController::class, 'submit'])->middleware(['auth','student']);
 
 Route::get('/lang/set/{lang}', [LangController::class, 'set']);
 
 
-Route::prefix('dashboard')->middleware(['auth', 'verified', 'can-enter-dashboard'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth','can-enter-dashboard'])->group(function () {
     Route::get('/', [AdminHomeController::class, 'index']);
 
     //cat Routes
