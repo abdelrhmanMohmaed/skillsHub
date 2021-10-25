@@ -30,8 +30,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::middleware('lang')->group(function () {
-    Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
     Route::get('/', [HomeController::class, 'index']);
     // Route::get('/home', [HomeController::class, 'index']);
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
