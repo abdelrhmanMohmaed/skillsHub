@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -30,6 +32,21 @@ class StudentController extends Controller
         $data['exams'] = $student->exams;
 
         return view('admin.students.show-scores')->with($data);
+    }
+    public function delete($id, Request $request)
+    {
+
+        $user = User::findOrFail($id);
+        try {
+            $user->delete();
+            Storage::delete($user);
+            $msg = 'row deleted successfully';
+        } catch (Exception $e) {
+            $msg = "can't delete this row";
+        }
+
+        $request->session()->flash('msg', $msg);
+        return back();
     }
 
     public function openExam($studentId, $examId)

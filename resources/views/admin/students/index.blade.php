@@ -36,7 +36,7 @@
                             </div>
 
 
-                            {{-- @include('admin.inc.messages') --}}
+                            @include('admin.inc.messages')
 
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
@@ -64,6 +64,10 @@
                                                 @endif
 
                                                 <td>
+                                                    <a href="{{ url("dashboard/students/delete/$student->id") }}"
+                                                        class="btn btn-sm btn-danger">
+                                                        </i><i class="fas fa-trash"></i>
+                                                    </a>
                                                     <a href="{{ url("dashboard/students/show-scores/$student->id") }}"
                                                         class="btn btn-sm btn-success">
                                                         </i><i class="fas fa-percent"></i>

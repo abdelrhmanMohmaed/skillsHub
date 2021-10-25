@@ -85,6 +85,7 @@ Route::prefix('dashboard')->middleware(['auth','can-enter-dashboard'])->group(fu
     Route::get('/students/show-scores/{id}', [StudentController::class, 'showScores']);
     Route::get('/students/open-exam/{studentId}/{examId}', [StudentController::class, 'openExam']);
     Route::get('/students/closed-exam/{studentId}/{examId}', [StudentController::class, 'closedExam']);
+    Route::get('/students/delete/{id}', [StudentController::class, 'delete']);
 
 
     // admins Routes
