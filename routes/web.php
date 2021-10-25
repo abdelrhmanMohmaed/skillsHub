@@ -14,6 +14,7 @@ use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\LangController;
 use App\Http\Controllers\web\ProfileController;
 use App\Http\Controllers\web\SkillController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,25 +31,26 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Auth::routes(['verify' => true]);
 Route::middleware('lang')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
     // Route::get('/home', [HomeController::class, 'index']);
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
     Route::get('/skills/show/{id}', [SkillController::class, 'show']);
     Route::get('/exam/show/{id}', [ExamController::class, 'show']);
-    Route::get('/exam/questions/{id}', [ExamController::class, 'questions'])->middleware(['auth','student']);
+    Route::get('/exam/questions/{id}', [ExamController::class, 'questions'])->middleware(['auth', 'student']);
     Route::get('/contact', [ContactController::class, 'index']);
     Route::post('/contact/message/send', [ContactController::class, 'send']);
-    Route::get('/profile', [ProfileController::class, 'index'])->middleware(['auth','student']);
+    Route::get('/profile', [ProfileController::class, 'index'])->middleware(['auth', 'student']);
 });
 
-Route::post('/exams/start/{id}', [ExamController::class, 'start'])->middleware(['auth','student', 'can-enter-exam']);
-Route::post('/exams/submit/{id}', [ExamController::class, 'submit'])->middleware(['auth','student']);
+Route::post('/exams/start/{id}', [ExamController::class, 'start'])->middleware(['auth', 'student', 'can-enter-exam']);
+Route::post('/exams/submit/{id}', [ExamController::class, 'submit'])->middleware(['auth', 'student']);
 
 Route::get('/lang/set/{lang}', [LangController::class, 'set']);
 
 
-Route::prefix('dashboard')->middleware(['auth','can-enter-dashboard'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'can-enter-dashboard'])->group(function () {
     Route::get('/', [AdminHomeController::class, 'index']);
 
     //cat Routes
@@ -101,5 +103,3 @@ Route::prefix('dashboard')->middleware(['auth','can-enter-dashboard'])->group(fu
     Route::get('/messages/show/{messages}', [MessagesController::class, 'show']);
     Route::post('/messages/response/{messages}', [MessagesController::class, 'response']);
 });
-
-
