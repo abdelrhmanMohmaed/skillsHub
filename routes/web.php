@@ -14,7 +14,6 @@ use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\LangController;
 use App\Http\Controllers\web\ProfileController;
 use App\Http\Controllers\web\SkillController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +30,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Auth::routes(['verify' => true]);
 Route::middleware('lang')->group(function () {
+    Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
     Route::get('/', [HomeController::class, 'index']);
     // Route::get('/home', [HomeController::class, 'index']);
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
